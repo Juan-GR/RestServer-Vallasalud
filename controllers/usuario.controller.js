@@ -7,9 +7,6 @@ const getUsuarios = async (req, res = response) => {
 
     let { limite = 5, desde = 0 } = req.query;
     const query = {estado:true};
-    if(isNaN(desde)){
-        desde = 0;
-    }
     // const usuarios = await Usuario.find(query)
     //     .skip(Number(desde))
     //     .limit(Number(limite));
