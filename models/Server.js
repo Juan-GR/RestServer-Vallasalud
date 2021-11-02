@@ -1,5 +1,7 @@
 const express = require('express')
 const cors = require('cors');
+const { dbConnection } = require('../database/config');
+
 
 class Server {
 
@@ -7,11 +9,19 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/user';
+        
+        //Conectar a la base de datos
+        this.conectarDB();
+        
         // Middlewares - se ejecutan al levantar el server o acceder a una ruta || también usan el metodo use()
         this.middlewares();
 
         //Rutas de la app
         this.routes();
+    }
+    
+    async conectarDB(){
+        await dbConnection();
     }
 
     middlewares() {
@@ -30,8 +40,8 @@ class Server {
     routes() {
 
         //Middleware condicional
-        //El path se describe aquí y no en user.js
-        this.app.use(this.usuariosPath, require('../routes/user'));
+        //El path se describe aquí y no en usuario.routes.js
+        this.app.use(this.usuariosPath, require('../routes/usuario.routes'));
 
     }
 
