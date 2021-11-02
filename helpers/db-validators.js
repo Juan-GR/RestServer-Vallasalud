@@ -1,4 +1,4 @@
-const Role = require("../models/Role");
+const Role = require("../models/role");
 const Usuario = require("../models/usuario");
 const bcryptjs = require("bcryptjs");
 
