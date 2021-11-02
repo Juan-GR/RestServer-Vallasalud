@@ -1,6 +1,6 @@
 {
   "name": "restvallasalud",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Este es el servidor REST de la aplicación web Vallasalud",
   "main": "index.js",
   "scripts": {
