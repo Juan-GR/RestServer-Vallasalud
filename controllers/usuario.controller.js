@@ -1,5 +1,4 @@
 const { response } = require('express');
-const bcryptjs = require('bcryptjs');
 const Usuario  = require('../models/usuario');
 const {encriptarPassword} = require("../helpers/db-validators");
 
@@ -27,6 +26,7 @@ const getUsuarios = async (req, res = response) => {
     });
 }
 
+//Agregar un usuario
 const postUsuarios =async (req, res = response) => {
 
     const { nombre,email,password,rol } = req.body;
@@ -42,6 +42,7 @@ const postUsuarios =async (req, res = response) => {
     });
 }
 
+//Modificar un usuario
 const putUsuarios = async (req, res = response) => {
 
     const {userId} = req.params;

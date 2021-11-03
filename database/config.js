@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
-
+/**
+ * Función flecha que se encarga de conectarse a la base de datos MONGODB
+ * @returns {Promise<void>}
+ */
 const dbConnection = async () => {
-
     try {
         await mongoose.connect(process.env.MONGODB_CNN);
         console.log('Base de datos conectada');

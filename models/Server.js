@@ -9,6 +9,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/user';
+        this.authPath = '/api/auth'
         
         //Conectar a la base de datos
         this.conectarDB();
@@ -41,7 +42,9 @@ class Server {
 
         //Middleware condicional
         //El path se describe aquí y no en usuario.routes.js
+        this.app.use(this.authPath, require('../routes/auth.routes'));
         this.app.use(this.usuariosPath, require('../routes/usuario.routes'));
+
 
     }
 
