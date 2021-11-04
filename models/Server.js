@@ -8,9 +8,13 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/user';
-        this.authPath = '/api/auth'
-        
+
+        this.paths = {
+            auth: '/api/auth',
+            usuarios: '/api/user',
+            categorias: '/api/categorias',
+        }
+
         //Conectar a la base de datos
         this.conectarDB();
         
@@ -41,10 +45,10 @@ class Server {
     routes() {
 
         //Middleware condicional
-        //El path se describe aquí y no en usuario.routes.js
-        this.app.use(this.authPath, require('../routes/auth.routes'));
-        this.app.use(this.usuariosPath, require('../routes/usuario.routes'));
-
+        //El path se describe aquí y no en x.routes.js
+        this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        this.app.use(this.paths.usuarios, require('../routes/usuario.routes'));
+        this.app.use(this.paths.categorias, require('../routes/categorias.routes'));
 
     }
 
