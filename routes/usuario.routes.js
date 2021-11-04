@@ -2,12 +2,14 @@ const { Router } = require('express');
 const {check} = require("express-validator");
 
 const { esRolValido, existeEmail, existeUsuarioPorId } = require('../helpers/db-validators');
-const { fieldvalidator } = require('../middlewares/fieldvalidator');
-const { jwtValidator } = require('../middlewares/JWTValidator');
-const { isAdminRole } = require('../middlewares/rolValidator');
-
 const {getUsuarios, putUsuarios, postUsuarios, deleteUsuarios, patchUsuarios} = require('../controllers/usuario.controller');
 
+
+// const { fieldvalidator } = require('../middlewares/fieldvalidator');
+// const { jwtValidator } = require('../middlewares/JWTValidator');
+// const { isAdminRole, verifyRol } = require('../middlewares/rolValidator');
+//Importación mas limpia
+const { fieldvalidator , jwtValidator, isAdminRole , verifyRol } = require('../middlewares/index');
 
 const router = Router();
 
@@ -34,7 +36,8 @@ router.post('/', [
 
 router.delete('/:userId', [
     jwtValidator,
-    isAdminRole,
+    //isAdminRole,
+    verifyRol('ADMIN_ROLE', 'DOCTOR_ROLE'),
     check('userId', 'No es un id válido').isMongoId(),
     check('userId').custom(existeUsuarioPorId),
     fieldvalidator
