@@ -7,7 +7,7 @@ const jwtValidator = async (req = request, res = response, next) => {
     const token = req.header('userToken');
     if(!token){
         return res.status(401).json({
-            msg: 'Usuario no loggeado'
+            msg: 'Usuario no logeado'
         })
     }
     
