@@ -29,7 +29,7 @@ const verifyRol = (...roles) => {
 
         if(!roles.includes(req.usuario.rol)) {
             return res.status(401).json({
-                msg: `El usuario no tiene los roles necesarios: ${roles} para eliminar al usuario`
+                msg: `El usuario no tiene los roles necesarios: ${roles} para realizar la accion`
             })
         }
 
