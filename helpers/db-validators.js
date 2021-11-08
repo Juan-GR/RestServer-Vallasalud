@@ -40,7 +40,7 @@ const existeCategoriaPorId = async (id) => {
     if (!existeCategoria){
         throw new Error(`El id ${ id } no existe como categoría`);
     }
-
+    return true;
 }
 
 const existeProductoPorId = async (id) => {
@@ -50,7 +50,16 @@ const existeProductoPorId = async (id) => {
     if (!existeProducto){
         throw new Error(`El id ${ id } no existe como producto`);
     }
+    return true;
+}
 
+const coleccionesPermitidas = (coleccion = '', colecciones = []) => {
+
+    const incluida = colecciones.includes(coleccion);
+    if(!incluida) {
+        throw new Error(`La coleccion ${coleccion} no está permitida. ${colecciones}`);
+    }
+    return true;
 }
 
 
@@ -60,5 +69,6 @@ module.exports = {
     encriptarPassword,
     existeUsuarioPorId,
     existeCategoriaPorId,
-    existeProductoPorId
+    existeProductoPorId,
+    coleccionesPermitidas
 }
