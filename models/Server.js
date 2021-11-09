@@ -2,7 +2,9 @@ const express = require('express')
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const { dbConnection } = require('../database/config');
-
+const morgan = require('morgan');
+const history = require('connect-history-api-fallback');
+const path = require('path');
 
 class Server {
 
@@ -27,6 +29,10 @@ class Server {
 
         //Rutas de la app
         this.routes();
+
+        //MiddlewaresClient: Estos deben estar debajo de las rutas y middlewares ya que el modo history afecta al API REST
+        this.middlewaresClient()
+
     }
     
     async conectarDB(){
@@ -40,9 +46,7 @@ class Server {
 
         //Lectura y parseo del body
         this.app.use(express.json());
-
-        //Directorio publico
-        this.app.use( express.static('public') );
+        this.app.use(express.urlencoded({extended:true}));
 
         //Carga de archivo
         this.app.use(fileUpload({
@@ -51,6 +55,16 @@ class Server {
             createParentPath: true
         }));
 
+        //Visualizar peticiones HTTP
+        this.app.use(morgan('tiny'));
+
+    }
+
+    middlewaresClient() {
+        //Directorio publico y usamos el modo historia para que no haya problemas con la integracion de vue y el modo SPA
+        this.app.use(history());
+        //this.app.use( express.static('public') );
+        this.app.use(express.static(path.join(__dirname,'../public')));
     }
 
     routes() {
@@ -66,8 +80,10 @@ class Server {
     }
 
     listen() {
+        // this.app.set('puerto',process.env.PORT || 8080); Si hubiera problemas con el server al subirlo
+        // this.app.listen( this.app.get('puerto'),
         this.app.listen( this.port, () => {
-            console.log('Servidor ejecutándose en el puerto ' + this.port);
+            console.log('Servidor ejecutándose en el puerto ' + this.port); //this.app.get('puerto')
         });
     }
 
