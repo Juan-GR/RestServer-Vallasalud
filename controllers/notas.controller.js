@@ -6,6 +6,7 @@ const addNote = async (req,res) => {
 
     const body = req.body;
 
+    body.usuarioId = req.usuario.id;
     try {
         const notaBD = await Nota.create(body);
 
@@ -22,7 +23,6 @@ const addNote = async (req,res) => {
 const obtainNota = async (req,res) => {
 
     const { id } = req.params;
-
     try {
         const notaBD = await Nota.findById(id);
 
@@ -39,7 +39,7 @@ const obtainNota = async (req,res) => {
 const obtainNotas = async (req,res) => {
 
     try {
-        const notasBD = await Nota.find();
+        const notasBD = await Nota.find({usuarioId:req.usuario.id});
 
         res.json(notasBD);
 
