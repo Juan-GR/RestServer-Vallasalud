@@ -1,8 +1,12 @@
 const Role = require("../models/role");
-const {Usuario,Categoria, Producto} = require("../models");
+const {Usuario} = require("../models");
 const bcryptjs = require("bcryptjs");
 
-
+/**
+ * Funcion que valida que el rol que se introduce al crear un usuario es válido
+ * @param rol
+ * @returns {Error}
+ */
 const esRolValido = async (rol = '') => {
     const rolExist = await Role.findOne({rol});
     if(!rolExist){
@@ -10,6 +14,11 @@ const esRolValido = async (rol = '') => {
     }
 }
 
+/**
+ * Funcion que valida si existe un usuario por id cuando se vaya a realizar alguna consulta con ese id
+ * @param userId
+ * @returns {Error}
+ */
 const existeUsuarioPorId = async (userId) => {
     //Verificar si el id del usuario existe
     const existeUsuario = await Usuario.findById(userId);
@@ -18,6 +27,11 @@ const existeUsuarioPorId = async (userId) => {
     }
 }
 
+/**
+ * Funcion que valida si el email de un usuario existe
+ * @param email
+ * @returns {Error}
+ */
 const existeEmail = async (email = '') => {
     //Verificar si el correo existe
     const existeEmail = await Usuario.findOne({email});
@@ -27,40 +41,17 @@ const existeEmail = async (email = '') => {
     }
 }
 
+/**
+ * Funcion que encripta una contraseña que se le pasa como parametro
+ * @param usuario Usuario que tiene la contraseña que va a ser encriptada
+ * @param password La contraseña que va a ser encriptada
+ */
 const encriptarPassword = (usuario,password) => {
     //Encripar password
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync( password, salt );
 }
 
-const existeCategoriaPorId = async (id) => {
-
-    const existeCategoria = await Categoria.findById(id);
-
-    if (!existeCategoria){
-        throw new Error(`El id ${ id } no existe como categoría`);
-    }
-    return true;
-}
-
-const existeProductoPorId = async (id) => {
-
-    const existeProducto = await Producto.findById(id);
-
-    if (!existeProducto){
-        throw new Error(`El id ${ id } no existe como producto`);
-    }
-    return true;
-}
-
-const coleccionesPermitidas = (coleccion = '', colecciones = []) => {
-
-    const incluida = colecciones.includes(coleccion);
-    if(!incluida) {
-        throw new Error(`La coleccion ${coleccion} no está permitida. ${colecciones}`);
-    }
-    return true;
-}
 
 
 module.exports = {
@@ -68,7 +59,4 @@ module.exports = {
     existeEmail,
     encriptarPassword,
     existeUsuarioPorId,
-    existeCategoriaPorId,
-    existeProductoPorId,
-    coleccionesPermitidas
 }

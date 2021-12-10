@@ -12,6 +12,10 @@
   "author": "Juan García Ramos",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.27.1",
     "connect-history-api-fallback": "^1.6.0",
@@ -20,21 +24,17 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "express-validator": "^6.13.0",
+    "jsdoc": "^3.6.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
-    "uuid": "^8.3.2",
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/node": "^7.16.0",
-    "@babel/preset-env": "^7.16.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/node": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
-    "jsdoc": "^3.6.7",
     "nodemon": "^2.0.14"
   }
 }

@@ -9,43 +9,44 @@ const path = require('path');
 class Server {
 
     constructor() {
+        //Se inicializa express
         this.app = express();
+        //Se guarda el puerto en el que se ejecutara el servidor
         this.port = process.env.PORT;
 
+        //Rutas de la API REST
         this.paths = {
             auth: '/api/auth',
             usuarios: '/api/user',
-            categorias: '/api/categorias',
-            productos: '/api/productos',
-            search: '/api/search',
-            upload: '/api/upload',
-            notas: '/api/notas',
+            hospital: '/api/hospital',
+            citas: '/api/citas',
+            informes: '/api/informes',
         }
 
-        //Conectar a la base de datos
+        //Una vez llamamos al objeto server nos conectamos a la base de datos
         this.conectarDB();
-        
-        // Middlewares - se ejecutan al levantar el server o acceder a una ruta || también usan el metodo use()
+
+        // Middlewares - se ejecutan al levantar el server o acceder a una ruta || también usan el metodo use() - Carga de los middlewares
         this.middlewares();
 
         //Rutas de la app
         this.routes();
 
-        //MiddlewaresClient: Estos deben estar debajo de las rutas y middlewares ya que el modo history afecta al API REST
+        //MiddlewaresClient: Estos deben estar debajo de las rutas y middlewares ya que el modo history(usado en vue para el modulo router) afecta al API REST
         this.middlewaresClient()
 
     }
-    
+
     async conectarDB(){
         await dbConnection();
     }
 
     middlewares() {
         //TODO ESTO SE EJECUTA ANTES DE LLEGAR A LAS RUTAS
-        //CORS
+        //CORS para evitar errores al usar cualquier libreria de peticiones como AXIOS
         this.app.use( cors() );
 
-        //Lectura y parseo del body
+        //Lectura y parseo del body para que lo que me devuelve el servidor sea mas facil de manejar
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:true}));
 
@@ -56,15 +57,14 @@ class Server {
             createParentPath: true
         }));
 
-        //Visualizar peticiones HTTP
+        //Visualizar peticiones HTTP en consola cuando se levanta el servidor
         this.app.use(morgan('tiny'));
 
     }
 
     middlewaresClient() {
-        //Directorio publico y usamos el modo historia para que no haya problemas con la integracion de vue y el modo SPA
+        //Directorio publico y usamos el modo historia para que no haya problemas con la integracion de VUE y el modo SPA
         this.app.use(history());
-        //this.app.use( express.static('public') );
         this.app.use(express.static(path.join(__dirname,'../public')));
     }
 
@@ -74,11 +74,9 @@ class Server {
         //El path se describe aquí y no en x.routes.js
         this.app.use(this.paths.auth, require('../routes/auth.routes'));
         this.app.use(this.paths.usuarios, require('../routes/usuario.routes'));
-        this.app.use(this.paths.categorias, require('../routes/categorias.routes'));
-        this.app.use(this.paths.productos, require('../routes/productos.routes'));
-        this.app.use(this.paths.search, require('../routes/search.routes'));
-        this.app.use(this.paths.upload, require('../routes/uploads.routes'));
-        this.app.use(this.paths.notas, require('../routes/notas.routes'));
+        this.app.use(this.paths.hospital, require('../routes/hospital.routes'));
+        this.app.use(this.paths.citas, require('../routes/citas.routes'));
+        this.app.use(this.paths.informes, require('../routes/informes.routes'));
     }
 
     listen() {

@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 /**
- * Función flecha que se encarga de generar un Json Web Token
+ * Función flecha que se encarga de generar un Json Web Token, con una duración y de caracter unico
  * @param uid uid
- * @returns {Promise<unknown>}
+ * @returns {Promise}
  */
 
 const generateJWT = ( uid = '') => {

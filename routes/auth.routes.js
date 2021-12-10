@@ -5,7 +5,7 @@ const {fieldvalidator} = require("../middlewares/fieldvalidator");
 
 const router = Router();
 
-//En el segundo argumento se mandan los middlewares
+//Ruta /api/auth/login, en esta ruta se comprueba el mail y la contraseña y cuando pasa los middlewares ejecuta la funcion login
 router.post('/login',  [
     check('email', 'El correo es obligatorio').isEmail(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),

@@ -1,4 +1,10 @@
-
+/**
+ * Funcion que valida que un archivo se ha subido correctamente y con la extension correcta
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 
 const fileValidator = (req,res,next) => {
 
@@ -7,9 +13,7 @@ const fileValidator = (req,res,next) => {
             msg:'No se han cargado archivos'
         });
     }
-
     next();
-
 }
 
 

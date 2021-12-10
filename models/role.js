@@ -1,6 +1,9 @@
 
 const { Schema, model } = require('mongoose');
-
+/**
+ * Modelo de MongoDB de Rol
+ * @type {*}
+ */
 const RoleSchema = Schema({
     rol: {
         type: String,

@@ -1,6 +1,9 @@
 
 const { Schema, model } = require('mongoose');
-
+/**
+ * Modelo de MongoDB de Usuario
+ * @type {*}
+ */
 const UsuarioSchema = Schema({
     nombre: {
         type: String,
@@ -15,21 +18,30 @@ const UsuarioSchema = Schema({
         type: String,
         required: [true, 'La contraseña es obligatorio']
     },
+    hospital: {
+        type: String,
+        required: [true, 'Debes seleccionar el hospital que te pertenece'],
+        enum: ['Hospital Clinico', 'Rio Hortega', 'Hospital Rondilla']
+    },
+    medico: {
+        type: String,
+        required: [true, 'Debes seleccionar el médico que te pertenece']
+    },
+    direccion: {
+        type: String,
+        required: [true, 'La direccion es obligatoria']
+    },
     img: {
-        type: String
+        type: String,
+        default: 'no_photo'
     },
     rol: {
         type: String,
-        required: true,
-        enum: ['ADMIN_ROLE', 'USER_ROLE', 'DOCTOR_ROLE']
+        default: 'USER_ROLE'
     },
     estado: {
         type: Boolean,
         default: true
-    },
-    google: {
-        type: Boolean,
-        default: false
     }
 });
 

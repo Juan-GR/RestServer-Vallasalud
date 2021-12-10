@@ -7,8 +7,12 @@ const cloudinary = require('cloudinary').v2;
 cloudinary.config(process.env.CLOUDINARY_URL);
 
 
-
-
+/**
+ * Funcion que se encarga de subir un fichero a la carpeta del proyecto
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const uploadFile = async (req , res ) => {
 
     try {
@@ -24,6 +28,12 @@ const uploadFile = async (req , res ) => {
 
 }
 
+/**
+ * Funcion que actualiza la imagen de cualquier usuario cuando se quiera cambiar la imagen de perfil
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 const updateImage = async (req,res) => {
 
     const {id,coleccion} = req.params;
@@ -76,6 +86,13 @@ const updateImage = async (req,res) => {
     })
 }
 
+
+/**
+ * Funcion que actualiza la foto de perfil desde la nube
+ * @param req
+ * @param res
+ * @returns {Object}
+ */
 const updateImageCloudinary = async (req,res) => {
 
     const {id,coleccion} = req.params;

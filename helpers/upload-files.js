@@ -1,7 +1,13 @@
 const {v4: uuidv4} = require("uuid");
 const path = require("path");
 
-
+/**
+ * Funcion que sube un archivo al servidor en la ruta /archivos
+ * @param files
+ * @param extensionesValidas Array de las extensiones de archivos que se pueden subir al servidor
+ * @param carpeta La ruta de la carpeta
+ * @returns {Promise<unknown>}
+ */
 const subirArchivo = (files, extensionesValidas = ['jpeg','png','txt','pdf','jpg'],carpeta = '') => {
 
     return new Promise((resolve, reject) => {
